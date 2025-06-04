@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<section th:fragment="section">
+    <h3>Danh sách sản phẩm</h3>
+    <a th:href="@{/product/add}" class="btn btn-primary mb-3">Thêm sản phẩm</a>
+    <table id="products" class="table table-bordered table-striped">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Tên</th>
+            <th>Giá</th>
+            <th>NSX</th>
+            <th>Thao tác</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="p : ${productList}">
+            <td th:text="${p.id}">1</td>
+            <td th:text="${p.name}">Tên</td>
+            <td th:text="${p.price}">0</td>
+            <td th:text="${p.manufacturer}">Hãng</td>
+            <td>
+                <a th:href="@{/product/view(id=${p.id})}" class="btn btn-info btn-sm">Xem</a>
+                <a th:href="@{/product/edit(id=${p.id})}" class="btn btn-warning btn-sm">Sửa</a>
+                <a th:href="@{/product/delete(id=${p.id})}" class="btn btn-danger btn-sm">Xoá</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+</html>
