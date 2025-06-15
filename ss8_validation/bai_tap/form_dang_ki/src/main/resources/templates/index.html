@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Đăng ký User</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<h2>Form Đăng Ký Thông Tin Người Dùng</h2>
+
+<form th:action="@{/submit}" th:object="${user}" method="post">
+
+    <div>
+        Firstname:
+        <input type="text" th:field="*{firstname}"/>
+        <p th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></p>
+    </div>
+
+    <div>
+        Lastname:
+        <input type="text" th:field="*{lastname}"/>
+        <p th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></p>
+    </div>
+
+    <div>
+        Phone number:
+        <input type="text" th:field="*{phonenumber}"/>
+        <p th:if="${#fields.hasErrors('phonenumber')}" th:errors="*{phonenumber}"></p>
+    </div>
+
+    <div>
+        Age:
+        <input type="number" th:field="*{age}"/>
+        <p th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></p>
+    </div>
+
+    <div>
+        Email:
+        <input type="text" th:field="*{email}"/>
+        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+    </div>
+
+    <div>
+        <button type="submit">Đăng ký</button>
+    </div>
+
+</form>
+</body>
+</html>
