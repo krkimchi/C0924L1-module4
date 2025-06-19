@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh sách Blog</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<h1>Danh sách Blog</h1>
+
+<a th:href="@{/blogs/create}">Tạo bài viết mới</a>
+
+<form id="searchForm">
+    <input type="text" id="searchInput" name="keyword" placeholder="Tìm tiêu đề...">
+    <button type="submit">Tìm kiếm</button>
+</form>
+
+<div id="blogTable">
+    <div th:replace="blog/_table :: tableFragment(${blogPage})"></div>
+</div>
+
+<button id="loadMoreBtn">Tải thêm</button>
+
+<script>
+    let page = 0;
+
+    $('#searchForm').submit(function (e) {
+        e.preventDefault();
+        page = 0; 
+        const keyword = $('#searchInput').val();
+        $.ajax({
+            url: '/blogs/search',
+            type: 'GET',
+            data: {keyword: keyword},
+            success: function (data) {
+                $('#blogTable').html(data);
+            }
+        });
+    });
+
+    $('#loadMoreBtn').click(function () {
+        page++;
+        $.ajax({
+            url: '/blogs/load',
+            type: 'GET',
+            data: {page: page},
+            success: function (data) {
+                $('#blogTable').append(data);
+            },
+            error: function () {
+                alert("Không thể tải thêm.");
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<div th:fragment="tableFragment(blogPage)">
+    <table border="1" cellpadding="5">
+        <thead>
+        <tr>
+            <th>Tiêu đề</th>
+            <th>Danh mục</th>
+            <th>Ngày tạo</th>
+            <th>Hành động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="blog : ${blogPage}">
+            <td th:text="${blog.title}"></td>
+            <td th:text="${blog.category.name}"></td>
+            <td th:text="${#temporals.format(blog.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
+            <td>
+                <a th:href="@{/blogs/view/{id}(id=${blog.id})}">Xem</a> |
+                <a th:href="@{/blogs/edit/{id}(id=${blog.id})}">Sửa</a> |
+                <a th:href="@{/blogs/delete/{id}(id=${blog.id})}" onclick="return confirm('Xóa thật chứ?')">Xóa</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

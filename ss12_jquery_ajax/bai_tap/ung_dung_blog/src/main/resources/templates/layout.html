@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title} ?: 'Ứng dụng Blog'">Ứng dụng Blog</title>
+</head>
+<body>
+
+<header>
+    <h2><a th:href="@{/blogs}">Ứng dụng Blog</a></h2>
+    <nav>
+        <a th:href="@{/blogs}">Bài viết</a> |
+        <a th:href="@{/categories}">Danh mục</a>
+    </nav>
+    <hr>
+</header>
+
+<main>
+    <div th:fragment="content">
+
+    </div>
+</main>
+
+<footer>
+    <hr>
+    <p style="font-size: 0.8em;">© CodeGym Blog</p>
+</footer>
+
+</body>
+</html>
