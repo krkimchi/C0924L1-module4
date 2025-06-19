@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Danh sách Blog</title></head>
+<body>
+
+<div th:fragment="content">
+    <h1>Danh sách Blog</h1>
+
+    <a th:href="@{/blogs/create}">Tạo bài viết mới</a>
+
+    <form th:action="@{/blogs/search}" method="get">
+        <input type="text" name="keyword" placeholder="Tìm tiêu đề...">
+        <button type="submit">Tìm kiếm</button>
+    </form>
+
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Tiêu đề</th>
+            <th>Danh mục</th>
+            <th>Ngày tạo</th>
+            <th>Hành động</th>
+        </tr>
+        <tr th:each="blog : ${blogPage.content != null} ? ${blogPage.content} : ${blogPage}">
+            <td th:text="${blog.title}"></td>
+            <td th:text="${blog.category.name}"></td>
+            <td th:text="${#temporals.format(blog.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
+            <td>
+                <a th:href="@{/blogs/view/{id}(id=${blog.id})}">Xem</a> |
+                <a th:href="@{/blogs/edit/{id}(id=${blog.id})}">Sửa</a> |
+                <a th:href="@{/blogs/delete/{id}(id=${blog.id})}" onclick="return confirm('Xóa thật chứ?')">Xóa</a>
+            </td>
+        </tr>
+    </table>
+
+    <div th:if="${blogPage.hasContent()}">
+        <span th:if="${blogPage.hasPrevious()}">
+            <a th:href="@{/blogs(page=${blogPage.number - 1})}">« Trước</a>
+        </span>
+        <span>Trang <span th:text="${blogPage.number + 1}"></span> / <span
+                th:text="${blogPage.totalPages}"></span></span>
+        <span th:if="${blogPage.hasNext()}">
+            <a th:href="@{/blogs(page=${blogPage.number + 1})}">Sau »</a>
+        </span>
+    </div>
+</div>
+
+</body>
+</html>
